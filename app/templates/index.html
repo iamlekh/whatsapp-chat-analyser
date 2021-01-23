@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html >
+<!--From https://codepen.io/frytyler/pen/EGdtg-->
+<head>
+  <meta charset="UTF-8">
+  <title>Chat analyser</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-giJF6kkoqNQ00vy+HMDP7azOuL0xtbfIcaT9wjKHr8RbDVddVHyTfAAsrekwKmP1" crossorigin="anonymous">
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/js/bootstrap.bundle.min.js" integrity="sha384-ygbV9kiqUc6oa4msXn9868pTtWMgiQaeYH7/t7LECLbyPA2x65Kgf80OJFdroafW" crossorigin="anonymous"></script>
+
+  
+</head>
+
+<body class="fst-italic">
+  <!-- {% with messages = get_flashed_messages(with_categories=true) %}
+  {% if messages %}
+      {% for category, message in messages %}
+          <div class="alert alert-warning alert-dismissible fade show" role="alert">
+            <span>{{ message }}</span>
+          
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+          </div>
+      {% endfor %}
+  {% endif %}
+{% endwith %} -->
+
+<div class="text-center text-uppercase font-weight-bold">
+
+  <div >
+      {% with errors = get_flashed_messages(category_filter=["success"]) %}
+          {% if errors %}
+              {% for message in errors %}
+                  <div class="alert alert-success alert-dismissible fade show" role="alert">      
+                      <span >{{ message }}</span>
+                      <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                  </div>
+              {% endfor %}
+          {% endif %}
+      {% endwith %}
+  </div>
+
+  <div >
+      {% with errors = get_flashed_messages(category_filter=["warning"]) %}
+          {% if errors %}
+              {%- for message in errors %}
+                  <div class="alert alert-warning alert-dismissible fade show" role="alert">
+                      <span>{{ message }}</span>
+                      <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                          <!-- <span aria-hidden="true">&times;</span> -->
+                      
+                  </div>
+              {% endfor -%}
+          {% endif %}
+      {% endwith %}
+  </div>
+
+  <div >
+      {% with errors = get_flashed_messages(category_filter=["danger"]) %}
+          {% if errors %}
+              {%- for message in errors %}
+                  <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                      <span>{{ message }}</span>
+                      <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                          <!-- <span aria-hidden="true">&times;</span> -->
+                      
+                  </div>
+              {% endfor -%}
+          {% endif %}
+      {% endwith %}
+  </div>
+
+</div>
+
+<center>
+<header class="masthead" style="background-image: url('{{url_for('static',filename = 'img/format.png' )}}') ; background-repeat: no-repeat;background-size: cover; background-position: left;background-attachment: fixed;">
+ <div class="login">
+	<h1 class="fst-italic display-3">Welcome to Whatsapp Chat Analyser</h1>
+
+     <!-- Main Input For Receiving Query to our ML -->
+     <form action="" method="POST" enctype="multipart/form-data">
+
+      <div class="row mb-10">
+        <div>
+          <br>
+            <h3><label class="col mb-3 col-form-label">Select Chat Text(.txt) File</label></h3>
+        </div>
+              <br>
+            <div class="custom-file">
+              <input oninput="filesize(this);" type="file" class="border border-dark rounded-pill shadow-lg p-3 custom-file-input" name="txt" id="txt">
+            </div>
+      </div>
+      <br>
+      <div class="d-grid gap-2 col-3 mx-auto">
+        <button type="submit" name="action" value="upload" class="rounded-pill row mb-4 btn-lg btn btn-outline-success">Upload & Analyse</button>
+        
+      </div>
+      <!-- <button type="submit" name="action" value="upload" class="rounded-pill row mb-4 btn-lg btn btn-outline-success">Upload</button> -->
+      <!-- <button type="submit" name="action" value="download" class="btn btn-primary">Download</button> -->
+   
+
+   <br>
+   <br>
+
+
+ </div>
+ 
+ {% block script %}
+ <script>
+
+  function filesize(elem){
+    document.cookie = `filesize=${elem.files[0].size}`
+    // console.log(elem.files[0].size)
+       }
+
+  </script>
+  {% endblock %}
+</center>
+
+
+
+
+
+<div class="row text-center " >
+  <div class="col-sm-3">
+    <div class="card  border-success">
+      <div class="card-body ">
+        <h5 class="card-title  ">Step 1</h5>
+        <img src="static/img/step1.png" class="card-img-top" height="250">
+        
+      </div>
+    </div>
+  </div>
+
+    <div class="col-sm-3">
+      <div class="card  border-success">
+        <div class="card-body">
+          <h5 class="card-title  " >Step 2</h5>
+          <img src="static/img/step2.png" class="card-img-top" height="250">
+        </div>
+      </div>
+    </div>
+    <div class="col-sm-3">
+      <div class="card  border-success">
+        <div class="card-body">
+          <h5 class="card-title">Step 3</h5>
+          <img src="static/img/step3.png" class="card-img-top" height="250">
+        </div>
+      </div>
+    </div>
+    <div class="col-sm-3">
+      <div class="card border-success">
+        <div class="card-body  ">
+          <h5 class="card-title">Step 4</h5>
+          <img src="static/img/step4.png" class="card-img-top" height="250">
+        </div>
+      </div>
+    </div3
+  </div>
+</div>
+
+
+</body>
+</html>

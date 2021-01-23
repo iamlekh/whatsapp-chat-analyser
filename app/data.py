@@ -12,11 +12,11 @@ from matplotlib.gridspec import GridSpec
 import seaborn as sns
 # import matplotlib.font_manager
 from textblob import TextBlob
-
+import os
 import warnings
 warnings.filterwarnings("ignore")
 
-
+basedir = os.path.abspath(os.path.dirname(__file__))
 
 from matplotlib.font_manager import FontProperties
 prop = FontProperties(fname='/System/Library/Fonts/Apple Color Emoji.ttc')
@@ -30,11 +30,16 @@ plt.rcParams['ytick.color']='#333F4B'
 
 colorlist = ["#D8DDEC","#D4EBD4","#EFEED8","#F9DFE1","#F6D0E8","#DFF2FD","#E2FCE6","#FCFADE","#FFEEE2","#FFDBDB","#F692BC","#F4ADC6","#FDFD95","#AAC5E2","#6891C3","#77DD77"]
 
-path = "temp/"
+path = basedir+"/temp/"
 
 # filepath = input("Please Enter the Whatsapp chat export path below ")
 # filepath = ("chat.txt")
 def details(filepath):
+    # filepath = "/" +filepath.split('/',2)[2]
+    # print("data base ---", basedir)
+    filepath = basedir + "/"+filepath
+    # print("l------",filepath)
+    # print("data",os.getcwd()) 
     df = pd.read_csv(filepath, sep = "delimiter",skip_blank_lines = True, header = None, engine='python')
 
     # extract date values and return as list of string

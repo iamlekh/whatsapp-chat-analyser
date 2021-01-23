@@ -1,20 +1,21 @@
 from flask import Flask, jsonify, render_template, request, redirect, flash, send_from_directory
 import os
+from werkzeug.utils import secure_filename
 from flask import send_file, send_from_directory, safe_join, abort
-from . import report
+from .report import report
 import re
 
 
 basedir = os.path.abspath(os.path.dirname(__file__))
-
+print(basedir)
 # report("chat.txt")
 
 app = Flask(__name__)
 
 
 
-app.config["CHAT_UPLOADS"] = "./chat/upload/"
-app.config["REPORT"] = "./static/pdf/"
+app.config["CHAT_UPLOADS"] = "./app/chat/upload/"
+app.config["REPORT"] = "./app/static/pdf/"
 app.config["ALLOWED_CHAT_EXTENSIONS"] = ["TXT"]
 app.secret_key = b'_5#y2L"F4Q8z\n\xec]/'
 app.config["MAX_IMAGE_FILESIZE"] = 1 * 1024 * 1024
@@ -52,7 +53,7 @@ def home():
                     if allowed_txt(chat.filename):
                         filename = secure_filename(chat.filename)
                         chat.save(os.path.join(app.config["CHAT_UPLOADS"], chat.filename))
-                        
+                        print(os.path.join(app.config["CHAT_UPLOADS"], chat.filename))
                         try:
                             report(os.path.join(app.config["CHAT_UPLOADS"], chat.filename))
                             return send_from_directory(os.path.abspath(app.config["REPORT"]),chat.filename.split(".")[0] +".pdf",as_attachment=True)  
@@ -66,7 +67,5 @@ def home():
                 return redirect(request.url)
             
     return render_template('index.html')
-
-
 
 

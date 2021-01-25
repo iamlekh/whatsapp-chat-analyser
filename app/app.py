@@ -17,7 +17,7 @@ app = Flask(__name__)
 app.config["CHAT_UPLOADS"] = "./app/chat/upload/"
 app.config["REPORT"] = "./app/static/pdf/"
 app.config["ALLOWED_CHAT_EXTENSIONS"] = ["TXT"]
-app.secret_key = b'_5#y2L"F4Q8z\n\xec]/'
+
 app.config["MAX_IMAGE_FILESIZE"] = 1 * 1024 * 1024
 
 def allowed_txt(filename):
